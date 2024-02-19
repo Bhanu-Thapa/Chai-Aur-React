@@ -1,5 +1,4 @@
 const mainContainer = document.querySelector('.root');
-console.log(mainContainer);
 
 const reactElement = {
   type: 'a',
@@ -11,10 +10,17 @@ const reactElement = {
 };
 
 function customRender(reactElement, mainContainer) {
+  // const domElement = document.createElement(reactElement.type);
+  // domElement.setAttribute('href', reactElement.props.href);
+  // domElement.setAttribute('target', reactElement.props.target);
+  // domElement.innerHTML = reactElement.children;
+  // mainContainer.appendChild(domElement);
+
   const domElement = document.createElement(reactElement.type);
-  domElement.setAttribute('href', reactElement.props.href);
-  domElement.setAttribute('target', reactElement.props.target);
   domElement.innerHTML = reactElement.children;
+  for (const prop in reactElement.props) {
+    domElement.setAttribute(prop, reactElement.props[prop]);
+  }
   mainContainer.appendChild(domElement);
 }
 
