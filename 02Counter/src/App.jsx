@@ -7,7 +7,20 @@ function App() {
 
   let add = () => {
     if (20 > count) {
-      setCounter(count + 1);
+      //////////  INTERVIEW QUESTION  ///////////////
+      // setCounter(count + 1);
+      // setCounter(count + 1);
+      // setCounter(count + 1);
+      // setCounter(count + 1);
+      // +1 ONLY , WHEN THEY SEE SAME CODE OR WORK, THEN ITS RETURN IN BATCH (PACK).
+
+      // #hiddenFeature setCounter take callback function
+      // prevcounter take last updated set (count)
+      setCounter((prevCounter) => prevCounter + 1);
+      // 1ST LINE CODE FINISH AND RETURN THE VALUE AND SO ON
+      setCounter((prevCounter) => prevCounter + 1);
+      setCounter((prevCounter) => prevCounter + 1);
+      setCounter((prevCounter) => prevCounter + 1);
     }
   };
   let decre = () => {
