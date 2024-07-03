@@ -7,13 +7,13 @@ function App() {
   const data = useCurrencyInfo('inr');
   const currencyData = Object.keys(data);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
 
   return (
     <>
       <InputBox
         currencyData={currencyData}
-        onAmountChange={(amount) => setAmount(amount)}
+        amountChange={(amount) => setAmount(amount)}
         amount={amount}
       />
     </>

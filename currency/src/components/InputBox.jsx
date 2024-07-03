@@ -1,4 +1,4 @@
-function InputBox({ amount, currencyData, onAmountChange }) {
+function InputBox({ amount, currencyData, amountChange }) {
   return (
     <div className={`bg-white p-3 rounded-lg text-sm flex `}>
       <div className="w-1/2">
@@ -8,7 +8,7 @@ function InputBox({ amount, currencyData, onAmountChange }) {
           type="number"
           placeholder="Amount"
           value={amount}
-          onChange={(e) => onAmountChange && onAmountChange(e.target.value)}
+          onChange={(e) => amountChange && amountChange(e.target.value)}
         />
       </div>
       <div className="w-1/2 flex flex-wrap justify-end text-right">
