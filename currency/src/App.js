@@ -37,9 +37,16 @@ function App() {
         currencyChange={(currency) => setConvertCurrency(currency)}
         currency={convertCurrency}
         amount={convertAmount}
+        styles="bg-red-600 text-white"
       />
-
-      <button onClick={calculateCurrency}>CONVERT CURRENCY</button>
+      <div className="flex justify-center mt-6">
+        <button
+          className="text-2xl font-bold bg-green-600 text-white p-4 rounded-2xl   hover:bg-red-600 "
+          onClick={calculateCurrency}
+        >
+          CONVERT CURRENCY
+        </button>
+      </div>
     </>
   );
 }

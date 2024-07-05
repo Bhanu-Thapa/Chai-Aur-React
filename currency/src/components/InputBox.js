@@ -5,23 +5,26 @@ function InputBox({
   currencyData,
   currency,
   currencyChange,
+  styles,
 }) {
   return (
-    <div className={`bg-white p-3 rounded-lg text-sm flex `}>
-      <div className="w-1/2">
-        <label className="text-black/40 mb-2 inline-block">{label}</label>
+    <div
+      className={` w-2/5 flex justify-between mt-20 mx-auto bg-green-500 rounded-lg py-4 px-4 text-gray-800 ${styles}`}
+    >
+      <div className=" flex flex-col gap-y-3">
+        <label className="text-2xl font-semibold">{label}</label>
         <input
-          className="outline-none w-full bg-transparent py-1.5"
+          className="border-2 focus:outline-red-400 text-xl p-2 rounded-lg border-gray-500 text-gray-800"
           type="number"
           placeholder="Amount"
           value={amount}
           onChange={(e) => amountChange && amountChange(e.target.value)}
         />
       </div>
-      <div className="w-1/2 flex flex-wrap justify-end text-right">
-        <p className="text-black/40 mb-2 w-full">Currency Type</p>
+      <div className="flex flex-col gap-y-4 items-center max-h-full ">
+        <p className="text-2xl font-bold uppercase">Currency Type</p>
         <select
-          className="rounded-lg px-1 py-1 bg-gray-100 cursor-pointer outline-none"
+          className="border-2 border-gray-500 focus:border-red-500 text-xl rounded-md text-black"
           value={currency}
           onChange={(e) => currencyChange && currencyChange(e.target.value)}
         >
