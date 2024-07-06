@@ -6,6 +6,7 @@ function InputBox({
   currency,
   currencyChange,
   styles,
+  isdisable,
 }) {
   return (
     <div
@@ -19,6 +20,7 @@ function InputBox({
           placeholder="Amount"
           value={amount}
           onChange={(e) => amountChange && amountChange(e.target.value)}
+          disabled={isdisable}
         />
       </div>
       <div className="flex flex-col gap-y-4 items-center max-h-full ">
