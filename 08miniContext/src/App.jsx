@@ -6,6 +6,7 @@ import Profile from './components/Profile';
 function App() {
   return (
     <UserContextProvider>
+      <h1>Login</h1>
       <Login />
       <Profile />
     </UserContextProvider>

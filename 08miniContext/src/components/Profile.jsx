@@ -3,12 +3,12 @@ import UserContext from '../context/UserContext';
 
 function Profile() {
   const { user } = useContext(UserContext);
+  if (!user) return <h2>Please Login</h2>;
+
   return (
-    <>
-      <h2>
-        Welcome {user.name} & Your Password {user.password}
-      </h2>
-    </>
+    <h2>
+      Welcome {user.name} And Your key is {user.password}
+    </h2>
   );
 }
 

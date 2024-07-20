@@ -2,31 +2,33 @@ import { useState, useContext } from 'react';
 import UserContext from '../context/UserContext';
 
 function Login() {
-  const [username, setUsername] = useState();
+  const [name, setName] = useState();
   const [password, setPassword] = useState();
 
   const { setUser } = useContext(UserContext);
 
   function handel(e) {
     e.preventDefault();
-    setUser({ username, password });
+    setUser({ name, password });
   }
+
   return (
-    <div>
+    <>
       <input
         type="text"
-        placeholder="User Name"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
+      {'   '}
       <input
         type="password"
         placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
         value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handel}>Submit</button>
-    </div>
+      <button onClick={handel}>SUMBIT</button>
+    </>
   );
 }
 
