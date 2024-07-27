@@ -5,6 +5,7 @@ export const TodoContext = createContext({
   addTodo: () => {},
   compeleted: () => {},
   editTodo: () => {},
+  deleteTodo: () => {},
 });
 
 export const TodoContextProvider = TodoContext.Provider;

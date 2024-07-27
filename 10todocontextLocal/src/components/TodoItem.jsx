@@ -3,7 +3,7 @@ import { useTodo } from '../context/todoContext';
 
 function TodoItem({ todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.todoTask);
-  const { completed, editTodo } = useTodo();
+  const { completed, editTodo, deleteTodo } = useTodo();
 
   const toggleCompleted = () => {
     completed(todo.id);
@@ -47,7 +47,7 @@ function TodoItem({ todo }) {
       {/* Delete Todo Button */}
       <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
-        // onClick={() => deleteTodo(todo.id)}
+        onClick={() => deleteTodo(todo.id)}
       >
         ❌
       </button>
