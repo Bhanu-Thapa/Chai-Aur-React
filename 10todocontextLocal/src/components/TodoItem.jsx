@@ -3,11 +3,13 @@ import { useTodo } from '../context/todoContext';
 
 function TodoItem({ todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.todoTask);
-  const { compeleted } = useTodo();
+  const { completed, editTodo } = useTodo();
 
   const toggleCompleted = () => {
-    compeleted(todo.id);
+    completed(todo.id);
   };
+
+  const [isTodoEditable, setIsTodoEditable] = useState(false);
 
   return (
     <div
@@ -23,28 +25,24 @@ function TodoItem({ todo }) {
       />
       <input
         type="text"
-        // className={`border outline-none w-full bg-transparent rounded-lg ${
-        //   isTodoEditable ? 'border-black/10 px-2' : 'border-transparent'
-        // } ${todo.completed ? 'line-through' : ''}`}
-        className={`border outline-none w-full bg-transparent rounded-lg `}
+        className={`border outline-none w-full bg-transparent rounded-lg 
+        ${isTodoEditable ? 'border-black/10 px-2' : 'border-transparent'}  
+    ${todo.completed ? 'line-through' : ''}`}
         value={todoMsg}
         onChange={(e) => setTodoMsg(e.target.value)}
-        // readOnly={!isTodoEditable}
-        readOnly={true}
+        readOnly={!isTodoEditable}
       />
       {/* Edit, Save Button */}
       <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
-        // onClick={() => {
-        //   if (todo.completed) return;
-
-        //   if (isTodoEditable) {
-        //     editTodo();
-        //   } else setIsTodoEditable((prev) => !prev);
-        // }}
-        // disabled={todo.completed}
+        onClick={() => {
+          if (todo.completed) return;
+          if (isTodoEditable) editTodo(todo.id, todoMsg);
+          setIsTodoEditable((prev) => !prev);
+        }}
+        disabled={todo.completed}
       >
-        {/* {isTodoEditable ? '📁' : '✏️'} */}
+        {isTodoEditable ? '📁' : '✏️'}
       </button>
       {/* Delete Todo Button */}
       <button
