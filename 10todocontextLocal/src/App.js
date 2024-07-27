@@ -17,8 +17,18 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todo));
   }, [todo]);
 
+  const compeleted = (id) => {
+    setTodo((prev) =>
+      prev.map((prevItem) =>
+        prevItem.id === id
+          ? { ...prevItem, completed: !prevItem.completed }
+          : prevItem
+      )
+    );
+  };
+
   return (
-    <TodoContextProvider value={{ todo, addTodo }}>
+    <TodoContextProvider value={{ todo, addTodo, compeleted }}>
       <div className="bg-[#172842] min-h-screen py-8">
         <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
           <h1 className="text-2xl font-bold text-center mb-8 mt-2">
