@@ -13,6 +13,14 @@ function App() {
       ...prev,
     ]);
   }
+
+  useEffect(() => {
+    const localDataTodo = JSON.parse(localStorage.getItem('todos'));
+    if (localDataTodo && localDataTodo.length > 0) {
+      setTodo(localDataTodo);
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todo));
   }, [todo]);
