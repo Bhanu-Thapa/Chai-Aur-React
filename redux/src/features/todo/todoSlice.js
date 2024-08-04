@@ -13,27 +13,35 @@ export const todoSlice = createSlice({
         id: nanoid(),
         text: action.payload,
         isComplete: false,
-        // isEditable: false,
+        isEditable: false,
       };
       state.todos.push(data);
     },
 
-    // removeTodo: (state, action) => {
-    //   state.todos = state.todos.filter((data) => data.id !== action.payload);
-    // },
-
-    completeTodo: (state, action) => {
-      const { id } = action.payload;
-      const item = state.todos.find((item) => item.id === id);
-      if (item) {
-        item.isComplete = !item.isComplete;
+    complete: (state, action) => {
+      const id = action.payload;
+      const val = state.todos.find((items) => items.id === id);
+      if (val) {
+        val.isComplete = !val.isComplete;
       }
     },
 
+    edit: (state, action) => {
+      const { id, newVal } = action.payload;
+      const val = state.todos.find((items) => items.id === id);
+      if (val) {
+        val.isEditable = newVal;
+      }
+    },
+
+    // removeTodo: (state, action) => {
+    //   state.todos = state.todos.filter((data) => data.id != action.payload);
+    // },
+
     // isEditable: (state, action) => {
     //   state.todos = state.todos.map((item) => {
-    //     if (item.id === action.payload) {
-    //       if (item.isEditable === false) {
+    //     if (item.id == action.payload) {
+    //       if (item.isEditable == false) {
     //         return { ...item, isEditable: true };
     //       } else {
     //         return { ...item, isEditable: false };
@@ -48,7 +56,7 @@ export const todoSlice = createSlice({
 
 // When you define reducers inside createSlice, it automatically generates action creators for you. These action creators are stored in todoSlice.actions.
 
-export const { addTodo, completeTodo } = todoSlice.actions;
+export const { addTodo, complete, edit } = todoSlice.actions;
 
 // createSlice also automatically generates the slice reducer based on the provided reducers and initial state. The reducer function is used to handle state transitions in the Redux store.
 // Reducer: A function that takes the current state and an action, and returns a new state. In your case, the reducer handles the addTodo action.
