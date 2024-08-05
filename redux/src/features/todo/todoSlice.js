@@ -8,6 +8,7 @@ export const todoSlice = createSlice({
   name: 'Todo',
   initialState,
   reducers: {
+    // FEATURE
     addTodo: (state, action) => {
       const data = {
         id: nanoid(),
@@ -40,15 +41,16 @@ export const todoSlice = createSlice({
       newmsg.text = msg;
     },
 
-    // removeTodo: (state, action) => {
-    //   state.todos = state.todos.filter((data) => data.id != action.payload);
-    // },
+    removeTodo: (state, action) => {
+      state.todos = state.todos.filter((data) => data.id !== action.payload);
+    },
   },
 });
 
 // When you define reducers inside createSlice, it automatically generates action creators for you. These action creators are stored in todoSlice.actions.
 
-export const { addTodo, complete, edit, editText } = todoSlice.actions;
+export const { addTodo, complete, edit, editText, removeTodo } =
+  todoSlice.actions;
 
 // createSlice also automatically generates the slice reducer based on the provided reducers and initial state. The reducer function is used to handle state transitions in the Redux store.
 // Reducer: A function that takes the current state and an action, and returns a new state. In your case, the reducer handles the addTodo action.

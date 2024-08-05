@@ -1,5 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { complete, edit, editText } from '../features/todo/todoSlice';
+import {
+  complete,
+  edit,
+  editText,
+  removeTodo,
+} from '../features/todo/todoSlice';
 import { useState } from 'react';
 
 function TodoItem({ item }) {
@@ -23,6 +28,7 @@ function TodoItem({ item }) {
         <input
           type="text"
           className={`border outline-none w-full bg-transparent rounded-lg 
+          ${item.isComplete ? 'line-through' : ''}
           ${item.isEditable ? 'outline-gray-700' : ''}
           `}
           value={msg}
@@ -32,14 +38,8 @@ function TodoItem({ item }) {
 
         <button
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
-          // onClick={() => {
-          //   if (todo.completed) return;
-          //   if (isTodoEditable) editTodo(todo.id, todoMsg);
-          //   setIsTodoEditable((prev) => !prev);
-          // }}
-          // disabled={todo.completed}
+          disabled={item.isComplete}
           onClick={() => {
-            // setEdit((prev) => !prev);
             if (item.isEditable) {
               dispatch(editText({ id: item.id, msg: msg }));
             }
@@ -47,17 +47,11 @@ function TodoItem({ item }) {
           }}
         >
           {item.isEditable ? '📁' : '✏️'}
-          {/* onClick={() => {
-            // setEdit((prev) => !prev);
-            dispatch(edit({ id: item.id, newVal: item.isEditable }));
-          }}
-        >
-          {item.isEditable ? '📁' : '✏️'} */}
         </button>
 
         <button
           className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
-          // onClick={() => deleteTodo(todo.id)}
+          onClick={() => dispatch(removeTodo(item.id))}
         >
           ❌
         </button>
