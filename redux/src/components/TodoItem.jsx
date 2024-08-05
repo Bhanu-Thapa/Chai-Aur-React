@@ -1,13 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { complete, edit } from '../features/todo/todoSlice';
+import { complete, edit, editText } from '../features/todo/todoSlice';
 import { useState } from 'react';
 
 function TodoItem({ item }) {
   const dispatch = useDispatch();
 
   const [msg, setMsg] = useState(item.text);
-
-  // const [isEdit, setEdit] = useState(item.isEditable);
 
   return (
     <>
@@ -24,10 +22,12 @@ function TodoItem({ item }) {
 
         <input
           type="text"
-          className={`border outline-none w-full bg-transparent rounded-lg `}
+          className={`border outline-none w-full bg-transparent rounded-lg 
+          ${item.isEditable ? 'outline-gray-700' : ''}
+          `}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
-          readOnly={!item.isComplete}
+          readOnly={!item.isEditable}
         />
 
         <button
@@ -40,6 +40,9 @@ function TodoItem({ item }) {
           // disabled={todo.completed}
           onClick={() => {
             // setEdit((prev) => !prev);
+            if (item.isEditable) {
+              dispatch(editText({ id: item.id, msg: msg }));
+            }
             dispatch(edit({ id: item.id, newVal: !item.isEditable }));
           }}
         >
