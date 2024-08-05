@@ -15,8 +15,8 @@ function TodoItem({ item }) {
   return (
     <>
       <div
-        className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black 
-          ${item.isComplete ? 'bg-[#c6e9a7]' : 'bg-[#ccbed7]'}`}
+        className={`flex border w-3/4 mx-auto mt-4 border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black 
+          ${item.isComplete ? 'bg-[#93e44d]' : 'bg-[#c6b2d6]'}`}
         key={item.id}
       >
         <input
@@ -27,9 +27,9 @@ function TodoItem({ item }) {
 
         <input
           type="text"
-          className={`border outline-none w-full bg-transparent rounded-lg 
+          className={`border outline-none w-full bg-transparent rounded-lg pl-1 
           ${item.isComplete ? 'line-through' : ''}
-          ${item.isEditable ? 'outline-gray-700' : ''}
+          ${item.isEditable ? 'outline-gray-600' : ''}
           `}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
@@ -37,7 +37,7 @@ function TodoItem({ item }) {
         />
 
         <button
-          className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
+          className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-green-600 shrink-0 disabled:opacity-50"
           disabled={item.isComplete}
           onClick={() => {
             if (item.isEditable) {
@@ -50,7 +50,7 @@ function TodoItem({ item }) {
         </button>
 
         <button
-          className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
+          className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-red-600 shrink-0"
           onClick={() => dispatch(removeTodo(item.id))}
         >
           ❌

@@ -14,18 +14,18 @@ function TodoForm() {
   }
 
   return (
-    <form onSubmit={addTask} className="flex">
+    <form onSubmit={addTask} className="flex w-3/4 mx-auto ">
       <input
         type="text"
         placeholder="Write Todo..."
-        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+        className="w-full border  border-gray-400 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
         value={task}
         onChange={(e) => setTask(e.target.value)}
         required
       />
       <button
         type="submit"
-        className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0"
+        className="rounded-r-lg px-3 py-1 bg-green-600 border-green-600 text-white shrink-0"
       >
         Add
       </button>
