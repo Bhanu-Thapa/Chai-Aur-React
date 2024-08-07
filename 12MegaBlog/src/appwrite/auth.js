@@ -21,11 +21,40 @@ export class AuthService {
         name
       );
       if (userAccount) {
-        return userAccount;
+        // IMPORTANT return ;
+        return this.login({ email, password });
       } else {
-        return null;
+        return userAccount;
       }
     } catch (error) {
+      console.log('rule statement here but not necessary ');
+      throw error;
+    }
+  }
+
+  async login({ email, password }) {
+    try {
+      return await this.account.createEmailPasswordSession(email, password);
+    } catch (error) {
+      console.log('rule statement here but not necessary ');
+      throw error;
+    }
+  }
+
+  async getCurrentUser() {
+    try {
+      return await this.account.get();
+    } catch (error) {
+      console.log('appwrite sercie :: getCurrentUser:: error', error);
+    }
+    return null;
+  }
+
+  async logout() {
+    try {
+      return await this.account.deleteSessions();
+    } catch (error) {
+      console.log('rule statement here but not necessary ');
       throw error;
     }
   }
