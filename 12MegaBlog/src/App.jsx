@@ -3,6 +3,8 @@ import './App.css';
 import Authservice from './appwrite/auth';
 import { useDispatch } from 'react-redux';
 import { login, logout } from './store/authSlice';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -11,9 +13,9 @@ function App() {
 
   useEffect(() => {
     Authservice.getCurrentUser()
-      .then((data) => {
-        if (data) {
-          dispatch(login(data));
+      .then((userData) => {
+        if (userData) {
+          dispatch(login({ userData }));
         } else {
           dispatch(logout());
         }
@@ -23,7 +25,13 @@ function App() {
       });
   }, []);
 
-  return <>{loading ? null : <h1 className="text-green-600 ">Mega Blog</h1>}</>;
+  return loading ? null : (
+    <>
+      <Header />
+      <h1 className="text-green-600 ">Mega Blog</h1>
+      <Footer />
+    </>
+  );
 }
 
 export default App;
