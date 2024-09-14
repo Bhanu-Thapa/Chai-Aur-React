@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +14,7 @@ export default function Protected({ children, authentication = true }) {
       navigate('/');
     }
     setLoader(false);
-  });
+  }, []);
 
   return loader ? <h1>Loading</h1> : <>{children}</>;
 }
