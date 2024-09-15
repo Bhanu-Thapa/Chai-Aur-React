@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { Input, Button, Logo } from './index';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,8 +17,10 @@ function Login() {
     setError('');
     try {
       const session = await authService.login(data);
+      console.log(session);
       if (session) {
         const userData = await authservice.getCurrentUser();
+        console.log(userData);
         if (userData) dispatch(authLogin(userData));
         navigate('/');
       }

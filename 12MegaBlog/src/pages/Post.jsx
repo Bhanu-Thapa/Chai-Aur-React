@@ -12,19 +12,31 @@ function Post() {
 
   const userData = useSelector((state) => state.auth.userData);
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  // const [isAuthor, setAuthor] = useState(false);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate('/');
+        if (post) {
+          setPost(post);
+          // setAuthor(post.userId == userData.$id);
+          // console.log(post.userId);
+          // console.log(userData.$id);
+          setLoading(false);
+        } else navigate('/');
       });
     } else navigate('/');
   }, [slug, navigate]);
 
+  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  console.log(post);
+
+  // console.log(isAuthor);
+
   const deletePost = () => {
-    appwriteService.deletePost(Post.$id).then((status) => {
+    appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
         appwriteService.deleteFile(post.featuredImage);
         navigate('/');
@@ -32,6 +44,9 @@ function Post() {
     });
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return post ? (
     <div className="py-8">
       <Container>

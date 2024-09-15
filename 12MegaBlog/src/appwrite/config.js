@@ -13,7 +13,7 @@ export class Services {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost({ title, slug, content, featureImage, status, userId }) {
+  async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
@@ -22,17 +22,17 @@ export class Services {
         {
           title,
           content,
-          featureImage,
+          featuredImage,
           status,
           userId,
         }
       );
     } catch (error) {
-      console.log('error in getPost', error);
+      console.log('Appwrite serive :: createPost :: error', error);
     }
   }
 
-  async updatePost(slug, { title, content, featureImage, status }) {
+  async updatePost(slug, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
@@ -41,7 +41,7 @@ export class Services {
         {
           title,
           content,
-          featureImage,
+          featuredImage,
           status,
         }
       );
@@ -114,7 +114,7 @@ export class Services {
   }
 
   getFilePreview(fileId) {
-    return this.bucket.deleteFile(conf.appwriteBucketId, fileId);
+    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
 }
 

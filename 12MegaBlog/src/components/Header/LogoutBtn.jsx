@@ -1,13 +1,16 @@
 import authServie from '../../appwrite/auth';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function LogoutBtn() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
     authServie.logout().then(() => {
       dispatch(logout());
+      navigate('/');
     });
   };
 

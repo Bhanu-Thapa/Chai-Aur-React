@@ -19,7 +19,30 @@ function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
+  // New Feature - Slug Exists Check
+
+  const checkSlugExists = async (slug) => {
+    const allposts = await appwriteService.getPosts();
+    console.log(slug);
+    console.log(allposts);
+    const slugAvial = allposts.documents.some(
+      (allpost) => allpost.$id === slug
+    );
+    return slugAvial;
+  };
+
   const submit = async (data) => {
+    // Slug Check
+    if (!post) {
+      const slugExists = await checkSlugExists(data.slug);
+
+      if (slugExists) {
+        alert('Slug already Exists, Try Different Slug');
+      }
+    }
+
+    /////////////////////////////////
+
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -31,17 +54,17 @@ function PostForm({ post }) {
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featureImage: file ? file.$id : undefined,
-        // if image is already present than may be this code return wrong value in feature image ***may be not sure
+        featuredImage: file ? file.$id : undefined,
+        // if image is already present than may be this code return wrong value in featured image ***may be not sure
       });
+
+      if (dbPost) navigate(`/post/${dbPost.$id}`);
     } else {
-      const file = data.image[0]
-        ? await appwriteService.uploadFile(dataimage[0])
-        : null;
+      const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
-        data.featureImage = fileId;
+        data.featuredImage = fileId;
         const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
@@ -83,7 +106,20 @@ function PostForm({ post }) {
           className="mb-4"
           {...register('title', { required: true })}
         />
-        <Input
+        {!post && (
+          <Input
+            label="Slug :"
+            placeholder="Slug"
+            className="mb-4"
+            {...register('slug', { required: true })}
+            onInput={(e) => {
+              setValue('slug', slugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              });
+            }}
+          />
+        )}
+        {/* <Input
           label="Slug :"
           placeholder="Slug"
           className="mb-4"
@@ -93,7 +129,8 @@ function PostForm({ post }) {
               shouldValidate: true,
             });
           }}
-        />
+          // style={{ display: post ? 'none' : 'block' }}
+        /> */}
 
         <RTE
           label="Content :"
@@ -108,14 +145,14 @@ function PostForm({ post }) {
           label="Featured Image :"
           type="file"
           className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
+          // accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register('image', { required: !post })}
         />
 
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featureImage)}
+              src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />
